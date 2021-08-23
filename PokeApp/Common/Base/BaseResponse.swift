@@ -2,27 +2,29 @@
 //  BaseModel.swift
 //  PokeApp
 //
-//  Created by GMV on 20/08/21.
+//  Created by Topik Mujianto on 20/08/21.
 //
 
 import Foundation
 
-class BaseModel<T: Decodable> {
-    var results: T?
-    var abilities: T?
+class BaseResponse<T>: Decodable where T: Decodable {
+  var results: T?
+  var chain: T?
+  
+  enum CodingKeys: String, CodingKey {
+    case results
+    case chain
+  }
+  
+  required init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
     
-    enum CodingKeys: String, CodingKey {
-        case results
-        case abilities
+    if container.contains(.results) {
+      results = try container.decodeIfPresent(T.self, forKey: .results)
     }
     
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        if container.contains(.results) {
-            results = try container.decodeIfPresent(T.self, forKey: .results)
-        } else if container.contains(.abilities) {
-            abilities = try container.decodeIfPresent(T.self, forKey: .abilities)
-        }
+    if container.contains(.chain) {
+      chain = try container.decodeIfPresent(T.self, forKey: .chain)
     }
+  }
 }

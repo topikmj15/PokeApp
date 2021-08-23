@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+class NameURL: Decodable {
+  let name: String
+  let url: String
+  
+  enum CodingKeys: String, CodingKey {
+    case name, url
+  }
+  
+  
+}

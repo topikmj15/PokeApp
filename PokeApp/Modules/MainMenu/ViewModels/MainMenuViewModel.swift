@@ -2,16 +2,16 @@
 //  MainMenuViewModel.swift
 //  PokeApp
 //
-//  Created by GMV on 20/08/21.
+//  Created by Topik Mujianto on 20/08/21.
 //
 
 import UIKit
 
 class MainMenuViewModel: BaseViewModel {
   let pokemon =  Observable<[Pokemon]>()
-  func doGetPokemon(isForcedUpdate: Bool) {
+  func doGetPokemonList(isForcedUpdate: Bool) {
     loadData.property = true
-    dataSource(isForcedUpdate).doGetPokemon(param: ["limit": 10], onSuccess: { response in
+    DataSource.current.doGetPokemonList(param: ["limit": 10], onSuccess: { response in
       self.loadData.property = false
       self.pokemon.property = response
     }, onFailure: { (errorMessage, code) in

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Pokemon" representedClassName="Pokemon" syncable="YES">
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="sprites" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Sprites" inverseName="pokemon" inverseEntity="Sprites"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Sprites" representedClassName="Sprites" syncable="YES">
+        <attribute name="frontDefault" attributeType="URI"/>
+        <attribute name="normal" optional="YES" attributeType="URI"/>
+        <attribute name="shiny" optional="YES" attributeType="URI"/>
+        <relationship name="pokemon" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Pokemon" inverseName="sprites" inverseEntity="Pokemon"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="frontDefault"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <elements>
+        <element name="Pokemon" positionX="-28.3023681640625" positionY="13.63311767578125" width="131.2015380859375" height="89"/>
+        <element name="Sprites" positionX="207.5772094726562" positionY="28.04483032226562" width="128" height="89"/>
+    </elements>
+</model>

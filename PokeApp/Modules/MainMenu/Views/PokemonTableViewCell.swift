@@ -2,7 +2,7 @@
 //  PokemonTableViewCell.swift
 //  PokeApp
 //
-//  Created by GMV on 21/08/21.
+//  Created by Topik Mujianto on 21/08/21.
 //
 
 import UIKit
@@ -15,6 +15,7 @@ class PokemonTableViewCell: BaseTableViewCell {
   var pokeNameLbl: UILabel!
   var pokeImageVw: UIImageView!
   var containerVw: UIView!
+  var typeStackVw: UIStackView!
   
   override var item: Any? {
     didSet {
@@ -22,6 +23,13 @@ class PokemonTableViewCell: BaseTableViewCell {
       pokeNameLbl.text = item.name
       pokeIdLbl.text = String(format: "#%03d", item.id)
       pokeImageVw.kf.setImage(with: item.sprites?.frontDefault)
+
+      typeStackVw.arrangedSubviews.forEach { $0.removeFromSuperview()}
+      item.types?.forEach {
+        let imageVw = UIImageView(image: UIImage(named: $0.type?.name ?? ""))
+        imageVw.autoSetDimensions(to: CGSize(width: 25, height: 25))
+        typeStackVw.addArrangedSubview(imageVw)
+      }
     }
   }
   
@@ -47,12 +55,10 @@ class PokemonTableViewCell: BaseTableViewCell {
   }
   
   override func initConstraint() {
-    containerVw.autoPinEdgesToSuperviewEdges(with: .zero)
+    containerVw.autoPinEdgesToSuperviewEdges()
     
     pokeImageVw.autoPinEdge(toSuperviewEdge: .leading, withInset: 16)
-    pokeImageVw.autoPinEdge(toSuperviewEdge: .trailing, withInset: 16, relation: .greaterThanOrEqual)
     pokeImageVw.autoPinEdge(toSuperviewEdge: .top, withInset: 16)
-    pokeImageVw.autoPinEdge(toSuperviewEdge: .bottom, withInset: 16)
     pokeImageVw.autoSetDimensions(to: CGSize(width: 50, height: 50))
     
     pokeNameLbl.autoPinEdge(toSuperviewEdge: .trailing, withInset: 16)
@@ -62,6 +68,9 @@ class PokemonTableViewCell: BaseTableViewCell {
     pokeIdLbl.autoPinEdge(toSuperviewEdge: .trailing, withInset: 16)
     pokeIdLbl.autoPinEdge(.leading, to: .trailing, of: pokeImageVw, withOffset: 8)
     pokeIdLbl.autoPinEdge(.top, to: .bottom, of: pokeNameLbl, withOffset: 8)
+    
+    typeStackVw.autoPinEdge(toSuperviewEdge: .trailing, withInset: 16)
+    typeStackVw.autoAlignAxis(.horizontal, toSameAxisOf: containerVw)
   }
   
   override func initView() {
@@ -78,6 +87,14 @@ class PokemonTableViewCell: BaseTableViewCell {
     
     pokeImageVw = UIImageView(frame: .zero)
     pokeImageVw.contentMode = .scaleAspectFit
+    pokeImageVw.clipsToBounds = true
     containerVw.addSubview(pokeImageVw)
+    
+    typeStackVw = UIStackView(frame: .zero)
+    typeStackVw.distribution = .fill
+    typeStackVw.alignment = .fill
+    typeStackVw.axis = .horizontal
+    typeStackVw.spacing = 8
+    containerVw.addSubview(typeStackVw)
   }
 }

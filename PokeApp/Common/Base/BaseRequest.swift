@@ -2,16 +2,16 @@
 //  BaseRequest.swift
 //  PokeApp
 //
-//  Created by GMV on 20/08/21.
+//  Created by Topik Mujianto on 20/08/21.
 //
 
 import Alamofire
 
-struct BaseRequest {
+class BaseRequest {
     static func request<T: Decodable> (
-        request: URLRequestConvertible,
+        from request: URLRequestConvertible,
         onSuccess: @escaping (_ response: T)-> Void,
-        onFailure: @escaping (_ error: String, _ code: Int?)-> Void
+        onFailure: @escaping (_ message: String, _ code: Int?)-> Void
     ) {
         if Reachability.isConnectedToNetwork() {
             AF.request(request)

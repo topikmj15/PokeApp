@@ -2,7 +2,7 @@
 //  MainMenuViewController.swift
 //  PokeApp
 //
-//  Created by GMV on 21/08/21.
+//  Created by Topik Mujianto on 21/08/21.
 //
 
 import UIKit
@@ -18,12 +18,13 @@ class MainMenuViewController: BaseViewController {
     navigationController?.addBlurEffect()
     navigationController?.navigationBar.shadowImage = UIImage()
   }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     configureView()
     observable()
     
-    viewModel.doGetPokemon(isForcedUpdate: true)
+    viewModel.doGetPokemonList(isForcedUpdate: true)
   }
   
   override func configureView() {

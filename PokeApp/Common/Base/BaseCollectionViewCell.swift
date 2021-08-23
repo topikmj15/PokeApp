@@ -2,7 +2,17 @@
 //  BaseCollectionViewCell.swift
 //  PokeApp
 //
-//  Created by GMV on 23/08/21.
+//  Created by Topik Mujianto on 23/08/21.
 //
 
-import Foundation
+import UIKit
+
+class BaseCollectionViewCell: UICollectionViewCell, CellIdentifiable {
+  func initConstraint() {
+      // Override this to init your constraint
+  }
+  
+  func initView() {
+      // Override this to init your view
+  }
+}
